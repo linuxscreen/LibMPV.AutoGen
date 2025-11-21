@@ -50,7 +50,7 @@
 							</Button>
 					</Border>
 
-					<Border Grid.Row="2">
+					<Border Grid.Row="2" x:Name="ControlPanel">
 						<Border.Background>
 							<SolidColorBrush Color="White" Opacity="0.1"/>
 						</Border.Background>

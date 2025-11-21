@@ -29,6 +29,8 @@ namespace LibMPVSharp.Avalonia.Demo
             get => GetValue(MediaPlayerProperty);
             set => SetValue(MediaPlayerProperty, value);
         }
+        
+        private Border? _controlPanel;
 
         public static readonly StyledProperty<TimeSpan> DurationProperty = AvaloniaProperty.Register<MediaPlayerView, TimeSpan>(nameof(Duration));
         public TimeSpan Duration
@@ -49,6 +51,17 @@ namespace LibMPVSharp.Avalonia.Demo
         {
             get => GetValue(VolumeProperty);
             set => SetValue(VolumeProperty, value);
+        }
+
+        public bool GetPanelVisible()
+        {
+            return _controlPanel?.IsVisible ?? false;
+        }
+
+        public void SetPanelVisible(bool visible)
+        {
+            if (_controlPanel == null) return;
+            _controlPanel.IsVisible = visible;
         }
 
         public static readonly StyledProperty<long> MaxVolumeProperty = AvaloniaProperty.Register<MediaPlayerView, long>(nameof(MaxVolume), 1000L);
@@ -130,6 +143,8 @@ namespace LibMPVSharp.Avalonia.Demo
             base.OnApplyTemplate(e);
             var slider = e.NameScope.Get<Slider>("PART_TimeBar");
             slider.Focus();
+            // 获取控制面板
+            _controlPanel = e.NameScope.Find<Border>("ControlPanel");
         }
 
         protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
@@ -285,9 +300,9 @@ namespace LibMPVSharp.Avalonia.Demo
                 [
                     new FilePickerFileType("mp4")
                     {
-                        Patterns = ["*.mp4"],
+                        Patterns = ["*"],
                         AppleUniformTypeIdentifiers = ["public.mpeg-4"],
-                        MimeTypes = ["video/mp4"]
+                        MimeTypes = ["video/mp4", "video/*"]
                     }
                 ],
                 AllowMultiple = false
