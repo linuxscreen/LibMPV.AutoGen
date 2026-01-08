@@ -25,15 +25,18 @@ namespace LibMPVSharp
 
         private static IntPtr DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
         { 
+            var baseDir = AppContext.BaseDirectory;
             if (libraryName == Name)
             {
                 if (OperatingSystem.IsWindows())
                 {
-                    return NativeLibrary.Load(WindowsLibrary, assembly, searchPath);
+                    // return NativeLibrary.Load(WindowsLibrary, assembly, searchPath);
+                    return NativeLibrary.Load(System.IO.Path.Combine(baseDir, "runtimes", "win-x64", "native", WindowsLibrary));
                 }
                 else if (OperatingSystem.IsMacOS() || OperatingSystem.IsMacCatalyst())
                 {
-                    return NativeLibrary.Load(MacLibrary, assembly, searchPath);
+                    return NativeLibrary.Load(System.IO.Path.Combine(baseDir, "runtimes", "osx", "native", MacLibrary));
+                    // return NativeLibrary.Load(MacLibrary, assembly, searchPath);
                 }
                 else if (OperatingSystem.IsAndroid())
                 {
@@ -41,7 +44,8 @@ namespace LibMPVSharp
                 }
                 else if  (OperatingSystem.IsLinux())
                 {
-                    return NativeLibrary.Load(LinuxLibrary, assembly, searchPath);
+                    // return NativeLibrary.Load(LinuxLibrary, assembly, searchPath);
+                    return NativeLibrary.Load(System.IO.Path.Combine(baseDir, "runtimes", "linux-x64", "native", LinuxLibrary));
                 }
             }
             return IntPtr.Zero;

@@ -1,25 +1,54 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <Platforms>AnyCPU</Platforms>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Authors>vrjure</Authors>
-    <Copyright>Copyright © 2025 vrjure</Copyright>
-    <PackageProjectUrl>https://github.com/vrjure/LibMPV.AutoGen</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/vrjure/LibMPV.AutoGen</RepositoryUrl>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <Version>0.0.2-beta</Version>
-    <Description>mpv csharp binding code</Description>
-    <PackageTags>mpv</PackageTags>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <Platforms>AnyCPU</Platforms>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <Authors>vrjure</Authors>
+        <Copyright>Copyright © 2025 vrjure</Copyright>
+        <PackageProjectUrl>https://github.com/vrjure/LibMPV.AutoGen</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/vrjure/LibMPV.AutoGen</RepositoryUrl>
+        <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+        <Version>0.0.2-beta</Version>
+        <Description>mpv csharp binding code</Description>
+        <PackageTags>mpv</PackageTags>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="..\LICENSE.txt">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
+    
+    <ItemGroup Condition="$([MSBuild]::IsOsPlatform('Windows'))">
+        <None Include="runtimes\win-x64\native\*"
+              Pack="true"
+              PackagePath="runtimes\win-x64\native\"
+              CopyToOutputDirectory="PreserveNewest"
+              CopyToPublishDirectory="PreserveNewest"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="$([MSBuild]::IsOsPlatform('OSX'))">
+        <None Include="runtimes\osx\native\*"
+              Pack="true"
+              PackagePath="runtimes\osx\native\"
+              CopyToOutputDirectory="PreserveNewest"
+              CopyToPublishDirectory="PreserveNewest"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="$([MSBuild]::IsOsPlatform('Linux'))">
+        <None Include="runtimes\linux-x64\native\*"
+              Pack="true"
+              PackagePath="runtimes\linux-x64\native\"
+              CopyToOutputDirectory="PreserveNewest"
+              CopyToPublishDirectory="PreserveNewest"/>
+    </ItemGroup>
+
+    <!--  <ItemGroup>-->
+    <!--    <None Include="runtimes\**\native\*"-->
+    <!--          />-->
+    <!--  </ItemGroup>-->
 
 </Project>

@@ -77,6 +77,13 @@ namespace LibMPVSharp
             var err = Client.MpvObserveProperty(_clientHandle, 0, name, format);
             CheckError(err, nameof(Client.MpvObserveProperty), name, format.ToString());
         }
+        
+        public void UnobserveProperty()
+        {
+            CheckClientHandle();
+            var err = Client.MpvUnobserveProperty(_clientHandle, 0);
+            CheckError(err, nameof(Client.MpvUnobserveProperty));
+        }
 
         public void SetProperty(string name, long value)
         {
