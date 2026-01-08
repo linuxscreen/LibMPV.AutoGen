@@ -44,7 +44,19 @@ namespace LibMPVSharp
                 }
                 else if  (OperatingSystem.IsLinux())
                 {
+                    Console.WriteLine("Loading Linux libmpv from custom path.");
                     // return NativeLibrary.Load(LinuxLibrary, assembly, searchPath);
+                    var path = System.IO.Path.Combine(baseDir, "runtimes", "linux-x64", "native", LinuxLibrary);
+                    Console.WriteLine($"Loading from path: {path}");
+                    try
+                    {
+                        return NativeLibrary.Load(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to load library: {ex.Message}");
+                        throw;
+                    }
                     return NativeLibrary.Load(System.IO.Path.Combine(baseDir, "runtimes", "linux-x64", "native", LinuxLibrary));
                 }
             }
