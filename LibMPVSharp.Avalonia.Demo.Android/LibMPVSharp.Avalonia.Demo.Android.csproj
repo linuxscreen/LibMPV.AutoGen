@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0-android</TargetFramework>
+    <TargetFramework>net10.0-android</TargetFramework>
     <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
     <Nullable>enable</Nullable>
     <ApplicationId>com.CompanyName.AvaloniaTest</ApplicationId>
     <ApplicationVersion>1</ApplicationVersion>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
-    <AndroidEnableProfiledAot>False</AndroidEnableProfiledAot>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -55,4 +55,21 @@
     <ProjectReference Include="..\LibMPVSharp.Avalonia.Demo\LibMPVSharp.Avalonia.Demo.csproj" />
     <ProjectReference Include="..\LibMPVSharp\LibMPVSharp.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+<!--    <AndroidNativeLibrary Include="$(MSBuildThisFileDirectory)..\..\runtimes\android\native\*.so">-->
+<!--      <Link>lib\arm64-v8a\%(Filename)%(Extension)</Link>-->
+<!--    </AndroidNativeLibrary>-->
+
+    <AndroidNativeLibrary Include="..\LibMPVSharp\runtimes\android\native\*.so">
+      <Abi>arm64-v8a</Abi>
+    </AndroidNativeLibrary>
+<!--    <AndroidNativeLibrary Include="$(MSBuildThisFileDirectory)..\..\runtimes\android-arm\native\*.so">-->
+<!--      <Link>lib\armeabi-v7a\%(Filename)%(Extension)</Link>-->
+<!--    </AndroidNativeLibrary>-->
+<!--    <AndroidNativeLibrary Include="$(MSBuildThisFileDirectory)..\..\runtimes\android-x64\native\*.so">-->
+<!--      <Link>lib\x86_64\%(Filename)%(Extension)</Link>-->
+<!--    </AndroidNativeLibrary>-->
+  </ItemGroup>
+
 </Project>
